@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+<meta name="theme-color" content="#f3ecdd">
+<title>Countries</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<section id="home" class="screen active">
+  <div class="home-map" id="homeMap"></div>
+  <div class="home-body">
+    <h1>Countries</h1>
+    <p class="tagline">Name as many as you can before the clock runs out.</p>
+    <label class="field-label" for="nameInput">Your name</label>
+    <input id="nameInput" class="text" maxlength="16" placeholder="e.g. Asha" autocomplete="off" spellcheck="false">
+    <button id="createBtn" class="btn primary">Create a room</button>
+    <div class="or"><span>or join a friend</span></div>
+    <div class="join-row">
+      <input id="codeInput" class="text code" maxlength="5" placeholder="ROOM CODE" autocomplete="off" autocapitalize="characters" spellcheck="false">
+      <button id="joinBtn" class="btn dark">Join</button>
+    </div>
+    <p id="homeError" class="error" role="alert"></p>
+    <p class="credits">Country data: mledoze/countries (ODbL). Map: Natural Earth.</p>
+  </div>
+</section>
+
+<section id="lobby" class="screen">
+  <header class="lobby-head">
+    <button id="lobbyLeave" class="link">Leave</button>
+    <div class="room-label">Room code</div>
+    <div id="roomCode" class="room-code"></div>
+    <button id="shareBtn" class="btn ghost small">Share code</button>
+  </header>
+  <div class="scroll">
+    <h2>Players <span id="playerCount" class="muted"></span></h2>
+    <ul id="playerList" class="players"></ul>
+    <h2>Game rules <span id="rulesNote" class="muted"></span></h2>
+    <div id="settings" class="settings"></div>
+  </div>
+  <footer class="foot">
+    <button id="startBtn" class="btn primary">Start</button>
+    <p id="waitHost" class="muted center">Waiting for the host to start…</p>
+  </footer>
+</section>
+
+<section id="countdown" class="screen center-screen">
+  <div class="muted">Get ready</div>
+  <div id="countNum" class="count-num">3</div>
+</section>
+
+<section id="play" class="screen">
+  <header class="play-head">
+    <div id="timer" class="timer">0:00</div>
+    <div class="score-box"><span id="score" class="score">0</span><span id="scoreOf" class="score-of"></span></div>
+    <button id="quitBtn" class="link">Quit</button>
+  </header>
+  <div id="playMap" class="map-card"></div>
+  <div id="rivals" class="rivals"></div>
+  <div id="regions" class="regions"></div>
+  <div id="entries" class="entries" aria-live="polite"></div>
+  <form id="guessForm" class="guess-bar">
+    <div id="feedback" class="feedback"></div>
+    <div class="guess-row">
+      <input id="guessInput" class="text" maxlength="40" placeholder="Type a country" autocomplete="off" autocorrect="off" autocapitalize="words" spellcheck="false" enterkeyhint="send">
+      <button class="btn primary send" aria-label="Submit">Go</button>
+    </div>
+  </form>
+</section>
+
+<section id="wait" class="screen center-screen">
+  <div class="big-title">Time’s up!</div>
+  <div class="muted">Collecting everyone’s answers…</div>
+</section>
+
+<section id="results" class="screen">
+  <div class="scroll">
+    <div id="banner" class="banner"></div>
+    <ol id="board" class="board"></ol>
+    <h2>Your map</h2>
+    <div id="resultMap" class="map-card"></div>
+    <div class="legend"><i class="k found"></i>Found<i class="k miss"></i>Missed</div>
+    <div id="resultRegions" class="region-bars"></div>
+    <details id="missedBox" class="fold">
+      <summary id="missedTitle"></summary>
+      <div id="missedList"></div>
+    </details>
+  </div>
+  <footer class="foot two">
+    <button id="resultsLeave" class="btn ghost">Leave</button>
+    <button id="againBtn" class="btn primary">Play again</button>
+    <p id="againWait" class="muted center">Host can start another round</p>
+  </footer>
+</section>
+
+<div id="netBar" class="net-bar">Reconnecting…</div>
+<div id="toast" class="toast"></div>
+<div id="dialog" class="dialog">
+  <div class="dialog-card">
+    <p id="dialogText"></p>
+    <div class="dialog-actions">
+      <button id="dialogNo" class="btn ghost">Keep playing</button>
+      <button id="dialogYes" class="btn primary">Quit</button>
+    </div>
+  </div>
+</div>
+
+<script src="mqtt.min.js"></script>
+<script src="data.js"></script>
+<script src="match.js"></script>
+<script src="net.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
